@@ -1,13 +1,13 @@
 #!/bin/bash
-export CUDA_DEVICE_MAX_CONNECTIONS=1
+#export CUDA_DEVICE_MAX_CONNECTIONS=1
 DIR=`pwd`
 
 MODEL="/root/autodl-fs/Qwen-14b-chat-int4/" # Set the path if you do not want to load from huggingface directly
 # ATTENTION: specify the path to your training data, which should be a json file consisting of a list of conversations.
 # See the section for finetuning in README for more information.
-DATA="./finetune/alpaca_gpt4_data_zh.json"
+DATA="./finetune/alpaca_gpt4_data_zh_qwen.json"
 
-export CUDA_VISIBLE_DEVICES=0
+#export CUDA_VISIBLE_DEVICES=0
 
 # Remember to use --fp16 instead of --bf16 due to autogptq
 python finetune.py \
@@ -15,7 +15,7 @@ python finetune.py \
   --data_path $DATA \
   --fp16 True \
   --output_dir output_qwen \
-  --num_train_epochs 5 \
+  --num_train_epochs 1 \
   --per_device_train_batch_size 2 \
   --per_device_eval_batch_size 1 \
   --gradient_accumulation_steps 8 \

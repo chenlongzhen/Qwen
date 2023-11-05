@@ -295,7 +295,6 @@ def train():
         trust_remote_code=True,
     )
     config.use_cache = False
-
     # Load model and tokenizer
     model = transformers.AutoModelForCausalLM.from_pretrained(
         model_args.model_name_or_path,
@@ -346,11 +345,12 @@ def train():
 
         if training_args.gradient_checkpointing:
             model.enable_input_require_grads()
-
     # Load data
     data_module = make_supervised_data_module(
         tokenizer=tokenizer, data_args=data_args, max_len=training_args.model_max_length
     )
+    print("done..")
+    print(data_module)
 
     # Start trainner
     trainer = Trainer(
