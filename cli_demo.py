@@ -16,7 +16,7 @@ from transformers import AutoModelForCausalLM, AutoTokenizer
 from transformers.generation import GenerationConfig
 from transformers.trainer_utils import set_seed
 
-DEFAULT_CKPT_PATH = 'Qwen/Qwen-7B-Chat'
+DEFAULT_CKPT_PATH = '/root/autodl-fs/Qwen-14b-chat-int4/' #注意带/才是本地.且从根目录写`
 
 _WELCOME_MSG = '''\
 Welcome to use Qwen-Chat model, type text to start chat, type :h to show command help.
