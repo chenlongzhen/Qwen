@@ -15,22 +15,23 @@ from transformers import AutoModelForCausalLM, AutoTokenizer
 from transformers.generation import GenerationConfig
 
 
-DEFAULT_CKPT_PATH = 'Qwen/Qwen-7B-Chat'
+#DEFAULT_CKPT_PATH = 'Qwen/Qwen-7B-Chat'
+DEFAULT_CKPT_PATH = '/root/autodl-fs/Qwen-14b-chat-int4/'
 
 
 def _get_args():
     parser = ArgumentParser()
     parser.add_argument("-c", "--checkpoint-path", type=str, default=DEFAULT_CKPT_PATH,
                         help="Checkpoint name or path, default to %(default)r")
-    parser.add_argument("--cpu-only", action="store_true", help="Run demo with CPU only")
+    parser.add_argument("--cpu-only", action="store_false", help="Run demo with CPU only")
 
     parser.add_argument("--share", action="store_true", default=False,
                         help="Create a publicly shareable link for the interface.")
     parser.add_argument("--inbrowser", action="store_true", default=False,
                         help="Automatically launch the interface in a new tab on the default browser.")
-    parser.add_argument("--server-port", type=int, default=8000,
+    parser.add_argument("--server-port", type=int, default=6006,
                         help="Demo server port.")
-    parser.add_argument("--server-name", type=str, default="127.0.0.1",
+    parser.add_argument("--server-name", type=str, default="0.0.0.0",
                         help="Demo server name.")
 
     args = parser.parse_args()
@@ -42,10 +43,11 @@ def _load_model_tokenizer(args):
         args.checkpoint_path, trust_remote_code=True, resume_download=True,
     )
 
-    if args.cpu_only:
-        device_map = "cpu"
-    else:
-        device_map = "auto"
+    #if args.cpu_only:
+    #    device_map = "cpu"
+    #else:
+    #    device_map = "auto"
+    device_map = "auto"
 
     model = AutoModelForCausalLM.from_pretrained(
         args.checkpoint_path,
